@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        15
-Release:        11.10%{?dist}
+Release:        11.11%{?dist}
 Summary:        Sonatype Spice Components
 
 License:        ASL 2.0
@@ -19,7 +19,7 @@ BuildArch: noarch
 
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-forge-parent
+BuildRequires:  %{?scl_prefix}forge-parent
 
 %description
 Spice components and libraries are common components
@@ -27,7 +27,7 @@ used throughout the Sonatype Forge.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 #Remove plexus-javadoc
@@ -37,13 +37,13 @@ cp %{SOURCE1} .
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -54,6 +54,9 @@ set -e -x
 
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 15-11.11
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 15-11.10
 - maven33 rebuild
 
